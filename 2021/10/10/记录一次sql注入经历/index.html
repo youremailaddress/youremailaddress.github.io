@@ -1,27 +1,60 @@
-<?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>Hello World</title>
-    <url>/2021/10/07/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<!DOCTYPE html>
+<html lang="zh" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>记录一次sql注入经历 - 羽山若木</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="羽山若木,"> 
+    <meta name="description" content="事情经过又到了一年一度的大学新生开学时间，我现在还对去年和前年同时期的两个恶作剧性质的快速传播的软件”送给最好的ta.apk”和”一份礼物.apk”记忆尤深。我之所以称其为恶作剧性质，不是因为它不够,"> 
+    <meta name="author" content="Wu Han"> 
+    <link rel="alternative" href="atom.xml" title="羽山若木" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
 
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+    
+<link rel="stylesheet" href="/css/diaspora.css">
 
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>记录一次sql注入经历</title>
-    <url>/2021/10/10/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1sql%E6%B3%A8%E5%85%A5%E7%BB%8F%E5%8E%86/</url>
-    <content><![CDATA[<h2 id="事情经过"><a href="#事情经过" class="headerlink" title="事情经过"></a>事情经过</h2><p>又到了一年一度的大学新生开学时间，我现在还对去年和前年同时期的两个恶作剧性质的快速传播的软件”送给最好的ta.apk”和”一份礼物.apk”记忆尤深。我之所以称其为<em>恶作剧</em>性质，不是因为它不够社死，只是单纯的认为它炫技的成分更多一些，就像早期的电脑病毒，横冲直撞招摇过市。但是真的让人防不胜防的，反而是那些隐藏起来的、没那么容易看出来的或者让人根本无感的软件或是网站，在大学新生网络安全意识薄弱的今天，这些“隐匿者”无疑是个很大的隐患。</p>
+<body class="loading">
+    <span id="config-title" style="display:none">羽山若木</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://blog.190542.xyz"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">记录一次sql注入经历</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">记录一次sql注入经历</h1>
+        <div class="stuff">
+            <span>十月 10, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/sql-%E6%B3%A8%E5%85%A5-hacker/" rel="tag">sql,注入,hacker</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="事情经过"><a href="#事情经过" class="headerlink" title="事情经过"></a>事情经过</h2><p>又到了一年一度的大学新生开学时间，我现在还对去年和前年同时期的两个恶作剧性质的快速传播的软件”送给最好的ta.apk”和”一份礼物.apk”记忆尤深。我之所以称其为<em>恶作剧</em>性质，不是因为它不够社死，只是单纯的认为它炫技的成分更多一些，就像早期的电脑病毒，横冲直撞招摇过市。但是真的让人防不胜防的，反而是那些隐藏起来的、没那么容易看出来的或者让人根本无感的软件或是网站，在大学新生网络安全意识薄弱的今天，这些“隐匿者”无疑是个很大的隐患。</p>
 <p>最近水群的时候突然发现有人发了一条消息</p>
 <p><img src="./%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1sql%E6%B3%A8%E5%85%A5%E7%BB%8F%E5%8E%86/1.png"></p>
 <p>凭借着网安人的敏锐直觉，我感觉事情没那么简单。点进去看了一下，是一个二维码</p>
@@ -64,7 +97,7 @@
 <p>通过这个信息，我找到了她注册的四五个域名，同样进行子域名的搜集，依然什么都没有发现。我借助古早库找到了一条和注册商公司住的地方离得很近的重名的人，并且反查到了她的QQ，确实和联系邮箱一致。但我依然不敢确定并且也不敢贸然打扰，毕竟套用别人信息在黑灰产里还是很常见的。这条线索中断了。我回过头来开始看群，群友们在用御剑扫描网站后台，但是看上去除了这零星的几个页面，没有别的什么有用信息。于是我趁这个空挡用masscan扫描了一下这个服务器的端口，果然有了一些发现。</p>
 <p><img src="D:\myblog\source_posts\记录一次sql注入经历\image-20211010175956733.png" alt="image-20211010175956733"></p>
 <p>这台服务器开了四个端口，很明显也很有辨识度的端口号888大概率是phpmyadmin的后台。</p>
-<p>但是试了半天，没试出来后台地址。我又打开<a href="http://xxxxxx.xxxxxx.cn:8885/%EF%BC%8C%E5%8F%91%E7%8E%B0%E4%BA%86">http://xxxxxx.xxxxxx.cn:8885/，发现了</a></p>
+<p>但是试了半天，没试出来后台地址。我又打开<a target="_blank" rel="noopener" href="http://xxxxxx.xxxxxx.cn:8885/%EF%BC%8C%E5%8F%91%E7%8E%B0%E4%BA%86">http://xxxxxx.xxxxxx.cn:8885/，发现了</a></p>
 <p><img src="D:\myblog\source_posts\记录一次sql注入经历\image-20211010180342366.png" alt="image-20211010180342366"></p>
 <p>这是宝塔的后台无疑了，这样也解释了为什么找不到phpmyadmin的后台，宝塔会在后面加一段随机字符串让你无法爆破。</p>
 <p>莫得办法，只能从前台入手了</p>
@@ -80,12 +113,134 @@
 <p>寄希望于后台的版本足够低并且骗子看到了我的消息，这样我就可以获得后台的地址和登录cookies了，截止目前为止，这个xss并没有被触发，可能是后台版本比较高，又或者是骗子还没有登录后台吧(sigh)</p>
 <p>所以所以啊，大家一定要注意好个人信息的保护，提高自己基本的网络安全意识，尤其是刚进大学的萌新，不要乱下载各种软件，不要打开各种奇怪的站点，大概就是这样。</p>
 <p><strong>再次声明：本文中的”我“并不实指作者，图片都是ps出来的，我什么都没干什么都不知道（不是的阿sir，你听我狡辩）</strong></p>
-]]></content>
-      <categories>
-        <category>网络攻防</category>
-      </categories>
-      <tags>
-        <tag>sql,注入,hacker</tag>
-      </tags>
-  </entry>
-</search>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci='6d00c7673f28bc647a27'
+        data-cs='c36b1b5b7ddfb8caad860a7488d251c6f08c917c'
+        data-r='youremailaddress.github.io'
+        data-o='youremailaddress'
+        data-a='youremailaddress'
+        data-d='true'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+
+</html>
